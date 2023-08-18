@@ -1,5 +1,6 @@
 
 function debounce(func, delay) {
+    console.log('deboucing?');
     let timer;
     return function () {
         const context = this;
@@ -18,7 +19,7 @@ function processForm() {
     if(nome.length>1){
         $.ajax({
             url: 'backend/processa.php',
-            method: 'post',
+            method: 'get',
             dataType: 'html',
             data: dados,
             success: function (data) {
@@ -31,10 +32,11 @@ function processForm() {
 }
 
 $(document).ready(function () {
+    console.log('ready?');
     $("#myform").submit(function(event) {
         event.preventDefault();
     });
 
     const debouncedProcessForm = debounce(processForm, 500);
-    $('#campo').keyup(debouncedProcessForm);
+    $('form > div > input').keyup(debouncedProcessForm);
 });
