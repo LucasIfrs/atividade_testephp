@@ -12,16 +12,20 @@ function debounce(func, delay) {
 
 function processForm() {
     var dados = $('form').serialize();
-
-    $.ajax({
-        url: 'backend/processa.php',
-        method: 'post',
-        dataType: 'html',
-        data: dados,
-        success: function (data) {
-            $('#resultado').empty().html(data);
-        }
-    });
+    const nome = dados.split("=")[1];
+    console.log(nome);
+    console.log(nome.length);
+    if(nome.length>1){
+        $.ajax({
+            url: 'backend/processa.php',
+            method: 'post',
+            dataType: 'html',
+            data: dados,
+            success: function (data) {
+                $('#resultado').empty().html(data);
+            }
+        });
+    }
 
     return false;
 }

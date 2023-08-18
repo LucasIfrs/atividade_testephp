@@ -8,7 +8,14 @@ if (!empty($_POST['campo'])) {
     $sql->bind_param("s", $campo);
     $sql->execute();
     $result = $sql->get_result();
-    $num_rows = $result->num_rows;
+
+    $countSQL =$mysqli->prepare( "SELECT COUNT(*) as total FROM pessoas WHERE nome like ?");
+    $countSQL->bind_param("s",$campo);
+    $countSQL->execute();
+    $countResult = $countSQL->get_result();
+    // echo var_dump($countResult->fetch_field('total'));
+    $countRow = $countResult->fetch_assoc();
+    $num_rows = $countRow['total'];
 
     if ($num_rows > 0) {
         echo "
