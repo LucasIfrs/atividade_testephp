@@ -18,7 +18,7 @@ function processForm() {
     console.log(nome.length);
     if(nome.length>1){
         $.ajax({
-            url: 'backend/processa.php',
+            url: '/atividade_testephp/backend/processa.php',
             method: 'get',
             dataType: 'html',
             data: dados,
