@@ -1,5 +1,5 @@
 <?php
-include __DIR__.'\conexao.php';
+include __DIR__.'\persistencia\conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] != 'GET') {
     http_response_code(405);
