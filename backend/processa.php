@@ -1,6 +1,6 @@
 <?php
 include __DIR__.'\persistencia\conexao.php';
-include __DIR__.'\persistencia\DAO.php';
+include __DIR__.'\persistencia\pessoaDao.php';
 
 if ($_SERVER['REQUEST_METHOD'] != 'GET') {
     http_response_code(405);
@@ -14,17 +14,18 @@ $nome = "%{$text}%";
 //$sql = $mysqli->prepare("SELECT * FROM pessoas WHERE nome LIKE ?");
 //$sql->bind_param("s", $nome);
 //$sql->execute();
-$pessoaDao = new PessoaDao($msqli);
+$pessoaDao = new PessoaDao($nome);
 
 $result = $pessoaDao->queryNome($nome);
+$num_rows = $pessoaDao->countNome($nome);
 
-$countSQL =$mysqli->prepare( "SELECT COUNT(*) as total FROM pessoas WHERE nome like ?");
-$countSQL->bind_param("s",$nome);
-$countSQL->execute();
-$countResult = $countSQL->get_result();
+//$countSQL =$mysqli->prepare( "SELECT COUNT(*) as total FROM pessoas WHERE nome like ?");
+//$countSQL->bind_param("s",$nome);
+//$countSQL->execute();
+//$countResult = $countSQL->get_result();
 // echo var_dump($countResult->fetch_field('total'));
-$countRow = $countResult->fetch_assoc();
-$num_rows = $countRow['total'];
+//$countRow = $countResult->fetch_assoc();
+//$num_rows = $countRow['total'];
 
 if ($num_rows > 0) {
     echo "
