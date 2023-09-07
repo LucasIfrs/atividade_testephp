@@ -28,26 +28,12 @@ $num_rows = $pessoaDao->countNome($nome);
 //$num_rows = $countRow['total'];
 
 if ($num_rows > 0) {
-    echo "
-        <table class='table'>
-            <thead>
-            <tr>
-                <td>Id</td>
-                <td>Nome</td>
-                <td>Idade</td>
-            </tr>
-            </thead>
-            <tbody>";
-
+    $pessoas= array();
+    
     $row_count = 0;
     while ($row = $result->fetch_assoc()) {
-        echo "
-            <tr>
-                <td>{$row['id']}</td>
-                <td>{$row['nome']}</td>
-                <td>{$row['idade']}</td>
-            </tr>";
-
+        $pessoas[]= $row;
+        
         $row_count++;
         if ($row_count >= 5) {
             
@@ -55,15 +41,14 @@ if ($num_rows > 0) {
         }
     }
 
-    echo "
-            </tbody>
-        </table>";
+    echo json_encode($pessoas);
         if ($row_count >= 5) {
             
-            echo "<div class='box'>Existem mais de 5 registros, refine sua pesquisa</div>";
+            // echo "<div class='box'>Existem mais de 5 registros, refine sua pesquisa</div>";
         }
 } else {
-    echo "Nenhum registro foi encontrado.";
+    http_response_code(404);
+    // echo "Nenhum registro foi encontrado.";
 }
 
 ?>

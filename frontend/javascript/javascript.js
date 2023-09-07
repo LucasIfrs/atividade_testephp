@@ -9,9 +9,13 @@ function debounce(func, delay) {
         timer = setTimeout(() => func.apply(context, args), delay);
     };
 }
+function processaPessoa(p){
+    return `<br> ${p.nome}`;
 
+}
 
 function processForm() {
+    const $resultado = $('#resultado');
     var dados = $('form').serialize();
     const nome = dados.split("=")[1];
     console.log(nome);
@@ -20,11 +24,20 @@ function processForm() {
         $.ajax({
             url: '/atividade_testephp/backend/processa.php',
             method: 'get',
-            dataType: 'html',
+            dataType: 'json',
             data: dados,
-            success: function (data) {
-                $('#resultado').empty().html(data);
+            success: function (pessoas) {
+                console.dir(pessoas);
+                // $('#resultado').empty().html(data);
+                $resultado.empty().html(pessoas.map(processaPessoa));
+            },
+            error: function(error){
+                console.dir(error);
+                if(error.status == 404){
+                    $resultado.empty().html("Nenhum resultado encontrado.");
+                }
             }
+            
         });
     }
 
