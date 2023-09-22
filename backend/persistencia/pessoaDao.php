@@ -1,15 +1,16 @@
 <?php
-include __DIR__.'\conexao.php';
-class pessoaDao{
-    //private $mysqli;
+include ('conexao.php');
+class pessoaDao extends Conexao{
+    private $bd;
+    
+    public function __construct() {
+        require_once('./conexao.php');
+        $this->bd = new Conexao();
+    }
 
     
     public function queryNome($nome){
-        $mysqli = new mysqli("localhost", "root", "", "database1");
-        
-        if ($mysqli->connect_error) {
-            die("Erro na conexão com o banco de dados: " . $mysqli->connect_error);
-        }
+        $mysqli = $this->bd->conectaDB();
         $nome = "%{$nome}%";
         $sql = $mysqli->prepare("SELECT * FROM pessoas WHERE nome LIKE ?");
         $sql->bind_param("s", $nome);
@@ -18,11 +19,7 @@ class pessoaDao{
         return $result;
     }
     public function countNome($nome) {
-        $mysqli = new mysqli("localhost", "root", "", "database1");
-        
-        if ($mysqli->connect_error) {
-            die("Erro na conexão com o banco de dados: " . $mysqli->connect_error);
-        }
+        $mysqli = $this->bd->conectaDB();
         $nome = "%{$nome}%";
         $countSQL =$mysqli->prepare("SELECT COUNT(*) as total FROM pessoas WHERE nome LIKE ?");
         $countSQL->bind_param("s", $nome);

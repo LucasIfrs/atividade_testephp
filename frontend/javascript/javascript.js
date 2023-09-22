@@ -28,8 +28,10 @@ function processForm() {
             data: dados,
             success: function (pessoas) {
                 console.dir(pessoas);
-                // $('#resultado').empty().html(data);
-                $resultado.empty().html(pessoas.map(processaPessoa));
+                 //$('#resultado').empty().html(`<meta charset="UTF-8">`);
+                
+                $resultado.empty().html(pessoas.map(processaPessoa)); //TENTAR ACHAR UM JEITO DE FAZER ENTRAR VARIÁVEL COM ~~~~~~: EX:JOÃO
+
             },
             error: function(error){
                 console.dir(error);

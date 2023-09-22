@@ -41,10 +41,10 @@ if ($num_rows > 0) {
         }
     }
 
-    echo json_encode($pessoas);
+    echo json_encode($pessoas, JSON_UNESCAPED_UNICODE);
         if ($row_count >= 5) {
             
-            // echo "<div class='box'>Existem mais de 5 registros, refine sua pesquisa</div>";
+             echo "<div class='box'>Existem mais de 5 registros, refine sua pesquisa</div>";
         }
 } else {
     http_response_code(404);
