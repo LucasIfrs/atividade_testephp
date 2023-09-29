@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `filhos` (
   `nome` varchar(45) NOT NULL,
   `idade` int DEFAULT NULL,
   KEY `pessoas_id` (`pessoas_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) 
 
 --
 -- Extraindo dados da tabela `filhos`
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `pessoas` (
 -- Extraindo dados da tabela `pessoas`
 --
 
-INSERT INTO `pessoas` (`id`, `nome`, `idade`) VALUES
+INSERT INTO pessoas (id, nome, idade) VALUES
 (1, 'João', 30),
 (2, 'Maria', 25),
 (3, 'Carlos', 40),

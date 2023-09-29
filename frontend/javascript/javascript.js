@@ -30,7 +30,7 @@ function processForm() {
                 console.dir(pessoas);
                  //$('#resultado').empty().html(`<meta charset="UTF-8">`);
                 
-                $resultado.empty().html(pessoas.map(processaPessoa)); //TENTAR ACHAR UM JEITO DE FAZER ENTRAR VARIÁVEL COM ~~~~~~: EX:JOÃO
+                $resultado.empty().html(pessoas.map(processaPessoa)); 
 
             },
             error: function(error){

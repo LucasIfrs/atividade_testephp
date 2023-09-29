@@ -1,33 +1,34 @@
 <?php
-include ('conexao.php');
-class pessoaDao extends Conexao{
-    private $bd;
+include ('Conexao.php');
+class PessoaDao {
     
-    public function __construct() {
-        require_once('./conexao.php');
-        $this->bd = new Conexao();
-    }
 
-    
     public function queryNome($nome){
-        $mysqli = $this->bd->conectaDB();
+        
+        $conexao = new Conexao();
+        $pdo =$conexao->getPdo();
         $nome = "%{$nome}%";
-        $sql = $mysqli->prepare("SELECT * FROM pessoas WHERE nome LIKE ?");
-        $sql->bind_param("s", $nome);
-        $sql->execute();
-        $result = $sql->get_result();
+        $sql = "SELECT * FROM pessoa WHERE nome ILIKE ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$nome]);
+        $result = $stmt->fetchAll();
+        echo var_dump($result);
         return $result;
     }
     public function countNome($nome) {
-        $mysqli = $this->bd->conectaDB();
+        $conexao = new Conexao();
+        $pdo =$conexao->getPdo();
         $nome = "%{$nome}%";
-        $countSQL =$mysqli->prepare("SELECT COUNT(*) as total FROM pessoas WHERE nome LIKE ?");
-        $countSQL->bind_param("s", $nome);
-        $countSQL->execute();
-        $countResult = $countSQL->get_result();
-        $countRow = $countResult->fetch_assoc();
-        return $countRow['total'];
+        $sql = "SELECT COUNT(*) as total FROM pessoa WHERE nome ILIKE ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$nome]);
+        $result = $stmt->fetchAll();
+        //echo var_dump($result);
+        return $result['total'];
     }
 }
+$dao = new PessoaDao();
+$dao->queryNome('carlos');
+//echo var_dump(getenv());
 
-?>
+
