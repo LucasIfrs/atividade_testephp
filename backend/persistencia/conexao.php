@@ -1,5 +1,6 @@
 <?php
 
+
 class Conexao {
     private $pdo;
 
